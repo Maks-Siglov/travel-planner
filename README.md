@@ -22,6 +22,8 @@ make run
 
 The app starts at **http://127.0.0.1:8000**
 
+Interactive Swagger UI is available at **http://127.0.0.1:8000/docs**
+
 ### Docker
 
 ```bash
