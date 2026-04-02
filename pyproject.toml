@@ -19,3 +19,37 @@ dependencies = [
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.15.9"
+pytest = "^9.0.2"
+
+[tool.ruff]
+line-length = 79
+target-version = "py313"
+# Skip/exclude directories and files
+exclude = [
+    ".idea/",
+    "venv/",
+    ".venv/",
+    "docs/",
+    "scripts/",
+    "temp/",
+    "alembic/",
+    "app_importer.py",
+    "tmp_apps.py",
+    "playgraund.py",
+]
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, isort, pylint, pyupgrade
+ignore = ["E501"]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
