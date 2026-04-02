@@ -66,7 +66,7 @@ class PlaceService:
             place = Place(
                 project_id=project_id,
                 external_id=data.external_id,
-                title=artwork.get("title"),
+                title=artwork.title,
             )
             self.place_repo.create(session, place)
             logger.info(

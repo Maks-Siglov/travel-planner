@@ -1,13 +1,14 @@
 import httpx
 
 from src.core.exceptions import ExternalAPIError
+from src.schemas.artic import Artwork
 
 
 class ArticClient:
     def __init__(self, base_url: str):
         self.base_url = base_url
 
-    def get_artwork(self, artwork_id: int) -> dict:
+    def get_artwork(self, artwork_id: int) -> Artwork:
         try:
             response = httpx.get(
                 f"{self.base_url}/artworks/{artwork_id}",
@@ -28,25 +29,4 @@ class ArticClient:
                 f"Art Institute API returned status {response.status_code}"
             )
 
-        return response.json()["data"]
-
-    def search_artworks(
-        self, query: str, page: int = 1, limit: int = 10
-    ) -> dict:
-        try:
-            response = httpx.get(
-                f"{self.base_url}/artworks/search",
-                params={"q": query, "page": page, "limit": limit},
-                timeout=10.0,
-            )
-        except httpx.HTTPError as e:
-            raise ExternalAPIError(
-                f"Failed to reach Art Institute API: {e}"
-            ) from e
-
-        if response.status_code != 200:
-            raise ExternalAPIError(
-                f"Art Institute API returned status {response.status_code}"
-            )
-
-        return response.json()
+        return Artwork.model_validate(response.json()["data"])

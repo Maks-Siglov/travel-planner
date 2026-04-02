@@ -52,7 +52,7 @@ class ProjectService:
                 place = Place(
                     project_id=project.id,
                     external_id=ext_id,
-                    title=artwork.get("title"),
+                    title=artwork.title,
                 )
                 self.place_repo.create(session, place)
                 logger.info(
